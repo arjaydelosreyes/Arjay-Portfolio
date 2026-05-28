@@ -1,16 +1,42 @@
 'use client'
 
-import { ThemeProvider as NextThemesProvider } from 'next-themes'
-import { ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+
+type Theme = 'light' | 'dark'
+
+interface ThemeContextValue {
+  resolvedTheme: Theme | undefined
+  setTheme: (theme: Theme) => void
+}
+
+const ThemeContext = createContext<ThemeContextValue>({
+  resolvedTheme: undefined,
+  setTheme: () => {},
+})
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setThemeState] = useState<Theme | undefined>(undefined)
+
+  useEffect(() => {
+    const stored = localStorage.getItem('theme') as Theme | null
+    const resolved: Theme = stored ?? 'light'
+    setThemeState(resolved)
+    document.documentElement.classList.toggle('dark', resolved === 'dark')
+  }, [])
+
+  const setTheme = (next: Theme) => {
+    setThemeState(next)
+    localStorage.setItem('theme', next)
+    document.documentElement.classList.toggle('dark', next === 'dark')
+  }
+
   return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="light"
-      disableTransitionOnChange
-    >
+    <ThemeContext.Provider value={{ resolvedTheme: theme, setTheme }}>
       {children}
-    </NextThemesProvider>
+    </ThemeContext.Provider>
   )
+}
+
+export function useTheme() {
+  return useContext(ThemeContext)
 }

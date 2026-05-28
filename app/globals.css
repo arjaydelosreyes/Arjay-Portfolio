@@ -10,38 +10,51 @@
   --color-border: var(--border);
 
   /* Font families */
-  --font-heading: var(--font-plus-jakarta-sans), sans-serif;
-  --font-body: var(--font-inter), sans-serif;
-  --font-mono: var(--font-geist-mono), monospace;
+  --font-heading: var(--font-bricolage), sans-serif;
+  --font-body: var(--font-figtree), sans-serif;
 }
 
 /* Light mode values */
 :root {
-  --background: oklch(98.5% 0.005 250);
-  --surface:    oklch(96%   0.006 250);
-  --foreground: oklch(16%   0.010 250);
-  --muted:      oklch(45%   0.012 250);
-  --accent:     oklch(55%   0.150 195);
-  --border:     oklch(90%   0.006 250);
+  --background: oklch(98.5% 0.006 65);
+  --surface:    oklch(96%   0.008 65);
+  --foreground: oklch(15%   0.015 65);
+  --muted:      oklch(44%   0.015 65);
+  --accent:     oklch(60%   0.195 50);
+  --border:     oklch(88%   0.010 65);
 }
 
-/* Dark mode — next-themes adds .dark class to <html> */
+/* Dark mode */
 html.dark {
-  --background: oklch(11%   0.008 250);
-  --surface:    oklch(15%   0.008 250);
-  --foreground: oklch(95%   0.005 250);
-  --muted:      oklch(62%   0.010 250);
-  --accent:     oklch(72%   0.130 195);
-  --border:     oklch(22%   0.008 250);
+  --background: oklch(12%   0.010 65);
+  --surface:    oklch(17%   0.012 65);
+  --foreground: oklch(96%   0.006 65);
+  --muted:      oklch(60%   0.012 65);
+  --accent:     oklch(72%   0.175 50);
+  --border:     oklch(24%   0.012 65);
 }
 
 /* Base styles */
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-figtree), sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* Smooth anchor scroll offset for fixed floating nav */
+:target {
+  scroll-margin-top: 5rem;
 }

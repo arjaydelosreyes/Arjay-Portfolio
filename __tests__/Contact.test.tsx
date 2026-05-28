@@ -3,9 +3,9 @@ import Contact from '@/components/Contact'
 import { bio } from '@/lib/data'
 
 describe('Contact', () => {
-  it('renders the Get In Touch CTA with correct mailto href', () => {
+  it('renders the email CTA with correct mailto href', () => {
     render(<Contact />)
-    const link = screen.getByRole('link', { name: /get in touch/i })
+    const link = screen.getByRole('link', { name: new RegExp(bio.email, 'i') })
     expect(link).toHaveAttribute('href', `mailto:${bio.email}`)
   })
 

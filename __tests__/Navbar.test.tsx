@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import Navbar from '@/components/Navbar'
 
-jest.mock('next-themes', () => ({
+jest.mock('@/components/ThemeProvider', () => ({
   useTheme: () => ({ resolvedTheme: 'light', setTheme: jest.fn() }),
 }))
 

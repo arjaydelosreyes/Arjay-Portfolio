@@ -1,8 +1,21 @@
+'use client'
+
+import { useInView } from '@/hooks/useInView'
 import { projects } from '@/lib/data'
 
 export default function Projects() {
+  const { ref, inView } = useInView()
+
   return (
-    <section id="projects" className="py-24 px-6 bg-surface">
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      id="projects"
+      className="py-24 px-6 bg-surface"
+      style={{
+        opacity: inView ? 1 : 0,
+        animation: inView ? 'fade-in-up 600ms ease-out both' : 'none',
+      }}
+    >
       <div className="max-w-5xl mx-auto">
         <h2 className="font-heading font-bold text-2xl sm:text-3xl text-foreground mb-12">
           Projects
@@ -12,7 +25,7 @@ export default function Projects() {
           {projects.map(project => (
             <article
               key={project.name}
-              className="bg-background border border-border rounded-xl p-6 flex flex-col gap-4 hover:border-accent transition-colors"
+              className="bg-background border border-border rounded-xl p-6 flex flex-col gap-4 hover:border-accent hover:shadow-sm transition-colors duration-200"
             >
               <h3 className="font-heading font-bold text-lg text-foreground">
                 {project.name}
@@ -25,7 +38,7 @@ export default function Projects() {
                 {project.tags.map(tag => (
                   <span
                     key={tag}
-                    className="font-mono text-xs px-2 py-1 rounded bg-surface border border-border text-muted"
+                    className="text-xs px-2 py-1 rounded bg-surface border border-border text-muted"
                   >
                     {tag}
                   </span>

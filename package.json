@@ -12,6 +12,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@next/swc-win32-x64-msvc": "^16.2.6",
     "@tailwindcss/oxide-win32-x64-msvc": "^4.3.0",
     "geist": "^1.7.1",
     "lightningcss": "^1.32.0",
@@ -33,6 +34,7 @@
     "eslint-config-next": "16.2.6",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
     "typescript": "^5"
