@@ -13,11 +13,19 @@ export async function sendContactEmail(_: unknown, formData: FormData) {
     return { error: 'All fields are required.' }
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email)) {
+    return { error: 'Please enter a valid email address.' }
+  }
+
+  // Strip characters that could inject extra headers (CR, LF, angle brackets, etc.)
+  const safeName = name.replace(/[\r\n<>"',;:]/g, '').trim()
+
   try {
     await resend.emails.send({
       from:    'Portfolio Contact <onboarding@resend.dev>',
       to:      'arjay09.adr43@gmail.com',
-      replyTo: `${name} <${email}>`,
+      replyTo: safeName ? `${safeName} <${email}>` : email,
       subject: `Message from ${name} — Arjay Delos Reyes Portfolio`,
       text:    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     })
