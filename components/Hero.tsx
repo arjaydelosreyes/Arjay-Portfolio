@@ -50,8 +50,7 @@ export default function Hero() {
 
               <a
                 href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                download="Arjay_Delos_Reyes_Resume.pdf"
                 className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-border text-foreground font-medium text-sm hover:bg-surface transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >
                 Download Resume
