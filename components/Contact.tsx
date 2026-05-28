@@ -28,8 +28,8 @@ export default function Contact() {
         </p>
 
         <a
-          href={`mailto:${bio.email}`}
-          className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-white font-semibold text-sm hover:opacity-90 transition-opacity mb-10"
+          href={`mailto:${bio.email}?subject=Opportunity%20%E2%80%94%20Arjay%20Delos%20Reyes`}
+          className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-accent text-white font-semibold text-sm hover:opacity-90 transition-opacity mb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         >
           {bio.email}
         </a>
