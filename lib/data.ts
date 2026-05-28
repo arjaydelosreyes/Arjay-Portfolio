@@ -13,10 +13,10 @@ export type SkillCategory = {
 
 export const bio = {
   name: 'Arjay Delos Reyes',
-  title: 'Full-Stack Developer & AI Engineer',
-  tagline: 'Building production-grade web applications with modern full-stack and AI tooling.',
+  title: 'Full-Stack Developer & AI Automation Builder',
+  tagline: 'Building production-grade web apps and AI-powered automation workflows with Claude MCP, N8N, and modern full-stack tooling.',
   summary:
-    'Graduating BS Information Technology student with hands-on experience building production-grade web applications. Sole developer of Instroom Post Tracker, a multi-tenant B2B SaaS platform. Co-developer of SagiTech, a CNN-based banana ripeness prediction system. Skilled in modern full-stack development and proficient in leveraging AI tools to accelerate development.',
+    'Graduating BS Information Technology student with hands-on experience building production-grade web applications. Sole developer of Instroom Post Tracker, a multi-tenant B2B SaaS platform. Co-developer of SagiTech, a CNN-based banana ripeness prediction system. Skilled in modern full-stack development and proficient in leveraging AI tools to accelerate development. Builds AI-driven automation workflows by connecting Claude MCP to N8N, using community workflows from GitHub to rapidly deliver production-ready automations.',
   email: 'arjay09.adr43@gmail.com',
   github: 'https://github.com/arjaydelosreyes',
   location: 'Calapan City, Oriental Mindoro, Philippines',
@@ -59,6 +59,10 @@ export const skillCategories: SkillCategory[] = [
   {
     name: 'AI / ML',
     skills: ['YOLOv8', 'OpenCV', 'NumPy', 'PIL', 'Google Colab', 'Roboflow'],
+  },
+  {
+    name: 'AI Automation',
+    skills: ['Claude API', 'MCP (Model Context Protocol)', 'N8N', 'Workflow Automation', 'Prompt Engineering'],
   },
   {
     name: 'Tools',
