@@ -35,12 +35,15 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
         className={`flex w-max ${animClass}`}
         style={{ '--marquee-speed': `${speed}s` } as React.CSSProperties}
       >
-        {[...iconSkills, ...iconSkills].map(({ name, Icon }, i) => (
+        {[...iconSkills, ...iconSkills].map(({ name, Icon, monoOn }, i) => (
           <div
             key={`${name}-${i}`}
             className="flex flex-col items-center gap-2 w-20 px-4 shrink-0"
           >
-            <div className="skill-icon flex items-center justify-center">
+            <div className={`flex items-center justify-center ${
+              monoOn === 'light' ? 'skill-icon-mono-light' :
+              monoOn === 'dark'  ? 'skill-icon-mono-dark'  : ''
+            }`}>
               {Icon && <Icon width={36} height={36} />}
             </div>
             <span className="text-[10px] text-muted text-center leading-tight font-body w-full">

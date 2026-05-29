@@ -68,17 +68,12 @@ html {
   animation: marquee-right var(--marquee-speed, 30s) linear infinite;
 }
 
-/* Normalize all thesvg icons to match foreground color.
-   Icons use hardcoded fills (#fff, #181717, gradients) — brightness(0) collapses
-   everything to black; invert(1) flips to white for dark mode. */
-:root .skill-icon {
-  filter: brightness(0);
-  opacity: 0.75;
-}
-html.dark .skill-icon {
-  filter: brightness(0) invert(1);
-  opacity: 0.75;
-}
+/* Icons with white/light fills — invisible on near-white light bg, visible on dark bg */
+:root .skill-icon-mono-light { filter: brightness(0); opacity: 0.8; }
+html.dark .skill-icon-mono-light { filter: none; opacity: 1; }
+
+/* Icons with near-black fills — visible on light bg, invisible on dark bg */
+html.dark .skill-icon-mono-dark { filter: brightness(0) invert(1); opacity: 0.8; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }

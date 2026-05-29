@@ -22,6 +22,7 @@ export type Project = {
 export type Skill = {
   name: string
   Icon?: SvgIcon
+  monoOn?: 'light' | 'dark'
 }
 
 export type SkillCategory = {
@@ -70,7 +71,7 @@ export const skillCategories: SkillCategory[] = [
       { name: 'JavaScript', Icon: Javascript },
       { name: 'TypeScript', Icon: Typescript },
       { name: 'React 18', Icon: ReactIcon },
-      { name: 'Next.js', Icon: Nextdotjs },
+      { name: 'Next.js', Icon: Nextdotjs, monoOn: 'light' },
       { name: 'Tailwind CSS', Icon: TailwindCss },
       { name: 'Vite', Icon: Vite },
     ],
@@ -79,11 +80,11 @@ export const skillCategories: SkillCategory[] = [
     name: 'Backend',
     skills: [
       { name: 'Node.js', Icon: Nodedotjs },
-      { name: 'Express', Icon: Expressdotjs },
+      { name: 'Express', Icon: Expressdotjs, monoOn: 'light' },
       { name: 'Python', Icon: Python },
       { name: 'Django REST', Icon: Djangorest },
       { name: 'FastAPI', Icon: Fastapi },
-      { name: 'Socket.IO', Icon: Socketdotio },
+      { name: 'Socket.IO', Icon: Socketdotio, monoOn: 'light' },
     ],
   },
   {
@@ -108,7 +109,7 @@ export const skillCategories: SkillCategory[] = [
   {
     name: 'AI Automation',
     skills: [
-      { name: 'Claude API', Icon: Anthropic },
+      { name: 'Claude API', Icon: Anthropic, monoOn: 'light' },
       { name: 'N8N', Icon: N8n },
     ],
   },
@@ -116,8 +117,8 @@ export const skillCategories: SkillCategory[] = [
     name: 'Tools',
     skills: [
       { name: 'Git', Icon: Git },
-      { name: 'GitHub', Icon: Github },
-      { name: 'Vercel', Icon: Vercel },
+      { name: 'GitHub', Icon: Github, monoOn: 'dark' },
+      { name: 'Vercel', Icon: Vercel, monoOn: 'light' },
       { name: 'Railway', Icon: Railway },
       { name: 'Google Drive API', Icon: GoogleDrive },
       { name: 'Upstash Redis', Icon: Upstash },

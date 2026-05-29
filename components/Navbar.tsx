@@ -34,45 +34,43 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-5 inset-x-0 z-50 flex justify-center pointer-events-none px-6">
-      <div className="pointer-events-auto w-full max-w-5xl flex items-center justify-between">
+      <div className="pointer-events-auto w-full max-w-5xl flex items-center justify-between relative">
 
-        <div className="flex items-center gap-3">
-          {/* Brand mark */}
-          <a
-            href="#"
-            aria-label="Home"
-            className="pointer-events-auto font-heading font-bold tracking-tight text-base select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded-sm"
-          >
-            <span className="text-accent">A</span><span className="text-foreground">DR</span>
-          </a>
+        {/* Brand mark */}
+        <a
+          href="#"
+          aria-label="Home"
+          className="pointer-events-auto font-heading font-bold tracking-tight text-base select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded-sm"
+        >
+          <span className="text-accent">A</span><span className="text-foreground">DR</span>
+        </a>
 
-          {/* Floating pill nav */}
-          <nav
-            className="hidden md:flex items-center gap-1 px-2 py-1.5 rounded-full bg-background/90 backdrop-blur border border-border shadow-sm"
-            aria-label="Primary navigation"
-          >
-            <ul className="flex items-center">
-            {navLinks.map(link => {
-              const id = link.href.slice(1)
-              const isActive = activeSection === id
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
-                      isActive
-                        ? 'text-accent bg-accent/15'
-                        : 'text-muted hover:text-foreground hover:bg-surface/60'
-                    }`}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              )
-            })}
-            </ul>
-          </nav>
-        </div>
+        {/* Floating pill nav — absolutely centered on the navbar */}
+        <nav
+          className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2 py-1.5 rounded-full bg-background/90 backdrop-blur border border-border shadow-sm"
+          aria-label="Primary navigation"
+        >
+          <ul className="flex items-center">
+          {navLinks.map(link => {
+            const id = link.href.slice(1)
+            const isActive = activeSection === id
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
+                    isActive
+                      ? 'text-accent bg-accent/15'
+                      : 'text-muted hover:text-foreground hover:bg-surface/60'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            )
+          })}
+          </ul>
+        </nav>
 
         {/* Right controls */}
         <div className="flex items-center gap-2 pointer-events-auto">
