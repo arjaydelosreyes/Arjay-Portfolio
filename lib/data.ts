@@ -1,13 +1,14 @@
 import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
 import {
   Html5, Css, Javascript, Typescript,
-  React as ReactIcon, Nextdotjs, TailwindCss, Vite,
+  React as ReactIcon, TailwindCss, Vite,
   Nodedotjs, Expressdotjs, Python, Djangorest, Fastapi, Socketdotio,
   Mysql, Postgresql, Supabase, Firebase, Sqlite,
   Opencv, Numpy, GoogleColab, Roboflow,
   Anthropic, N8n,
   Git, Github, Vercel, Railway, GoogleDrive, Upstash,
 } from '@thesvg/react'
+import NextjsIcon from '@/components/icons/NextjsIcon'
 
 export type SvgIcon = ForwardRefExoticComponent<SVGProps<SVGSVGElement> & RefAttributes<SVGSVGElement>>
 
@@ -71,7 +72,7 @@ export const skillCategories: SkillCategory[] = [
       { name: 'JavaScript', Icon: Javascript },
       { name: 'TypeScript', Icon: Typescript },
       { name: 'React 18', Icon: ReactIcon },
-      { name: 'Next.js', Icon: Nextdotjs, monoOn: 'both' },
+      { name: 'Next.js', Icon: NextjsIcon, monoOn: 'both' },
       { name: 'Tailwind CSS', Icon: TailwindCss },
       { name: 'Vite', Icon: Vite },
     ],

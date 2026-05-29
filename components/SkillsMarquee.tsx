@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useTheme } from '@/components/ThemeProvider'
 import type { Skill } from '@/lib/data'
 
@@ -26,18 +25,6 @@ function iconFilter(monoOn: Skill['monoOn'], isDark: boolean): React.CSSProperti
 export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) {
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
-
-  // Suppress the package-level dataCircle prop warning from @thesvg/react's Nextdotjs icon.
-  // The icon's generated code passes "dataCircle" (camelCased data-*) to a native circle element —
-  // a build bug in the package that has no upstream fix.
-  useEffect(() => {
-    const original = console.error.bind(console)
-    console.error = (...args: Parameters<typeof console.error>) => {
-      if (typeof args[0] === 'string' && args[0].includes('dataCircle')) return
-      original(...args)
-    }
-    return () => { console.error = original }
-  }, [])
 
   const iconSkills = skills.filter(s => s.Icon)
   if (iconSkills.length === 0) return null
