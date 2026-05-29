@@ -2,44 +2,45 @@
 
 import { useInView } from '@/hooks/useInView'
 import { skillCategories } from '@/lib/data'
+import SkillsMarquee from '@/components/SkillsMarquee'
 
 export default function Skills() {
   const { ref, inView } = useInView()
+
+  const visibleCategories = skillCategories
+    .map(cat => ({ ...cat, skills: cat.skills.filter(s => s.Icon) }))
+    .filter(cat => cat.skills.length > 0)
 
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="skills"
-      className="py-24 px-6"
+      className="py-24"
       style={{
         opacity: inView ? 1 : 0,
         animation: inView ? 'fade-in-up 600ms ease-out both' : 'none',
       }}
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto px-6">
         <h2 className="font-heading font-bold text-2xl sm:text-3xl text-foreground mb-12">
           Skills
         </h2>
+      </div>
 
-        <div className="flex flex-col gap-10">
-          {skillCategories.map(category => (
-            <div key={category.name}>
-              <h3 className="font-heading font-semibold text-xs text-muted uppercase tracking-[0.15em] mb-4">
+      <div className="flex flex-col gap-10">
+        {visibleCategories.map((category, i) => (
+          <div key={category.name}>
+            <div className="max-w-5xl mx-auto px-6 mb-4">
+              <h3 className="font-heading font-semibold text-xs text-muted uppercase tracking-[0.15em]">
                 {category.name}
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map(skill => (
-                  <span
-                    key={skill}
-                    className="text-sm px-3 py-1.5 rounded-md bg-surface border border-border text-foreground"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
             </div>
-          ))}
-        </div>
+            <SkillsMarquee
+              skills={category.skills}
+              direction={i % 2 === 0 ? 'left' : 'right'}
+            />
+          </div>
+        ))}
       </div>
     </section>
   )

@@ -1,3 +1,16 @@
+import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
+import {
+  Html5, Css, Javascript, Typescript,
+  React as ReactIcon, Nextdotjs, TailwindCss, Vite,
+  Nodedotjs, Expressdotjs, Python, Djangorest, Fastapi, Socketdotio,
+  Mysql, Postgresql, Supabase, Firebase, Sqlite,
+  Opencv, Numpy, GoogleColab, Roboflow,
+  Anthropic, N8n,
+  Git, Github, Vercel, Railway, GoogleDrive, Upstash,
+} from '@thesvg/react'
+
+export type SvgIcon = ForwardRefExoticComponent<SVGProps<SVGSVGElement> & RefAttributes<SVGSVGElement>>
+
 export type Project = {
   name: string
   description: string
@@ -6,9 +19,14 @@ export type Project = {
   githubUrl?: string
 }
 
+export type Skill = {
+  name: string
+  Icon?: SvgIcon
+}
+
 export type SkillCategory = {
   name: string
-  skills: string[]
+  skills: Skill[]
 }
 
 export const bio = {
@@ -46,26 +64,63 @@ export const projects: Project[] = [
 export const skillCategories: SkillCategory[] = [
   {
     name: 'Frontend',
-    skills: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React 18', 'Next.js', 'Tailwind CSS', 'Vite'],
+    skills: [
+      { name: 'HTML', Icon: Html5 },
+      { name: 'CSS', Icon: Css },
+      { name: 'JavaScript', Icon: Javascript },
+      { name: 'TypeScript', Icon: Typescript },
+      { name: 'React 18', Icon: ReactIcon },
+      { name: 'Next.js', Icon: Nextdotjs },
+      { name: 'Tailwind CSS', Icon: TailwindCss },
+      { name: 'Vite', Icon: Vite },
+    ],
   },
   {
     name: 'Backend',
-    skills: ['Node.js', 'Express', 'Python', 'Django REST', 'FastAPI', 'Socket.IO'],
+    skills: [
+      { name: 'Node.js', Icon: Nodedotjs },
+      { name: 'Express', Icon: Expressdotjs },
+      { name: 'Python', Icon: Python },
+      { name: 'Django REST', Icon: Djangorest },
+      { name: 'FastAPI', Icon: Fastapi },
+      { name: 'Socket.IO', Icon: Socketdotio },
+    ],
   },
   {
     name: 'Databases',
-    skills: ['MySQL', 'PostgreSQL', 'Supabase', 'Firebase', 'SQLite'],
+    skills: [
+      { name: 'MySQL', Icon: Mysql },
+      { name: 'PostgreSQL', Icon: Postgresql },
+      { name: 'Supabase', Icon: Supabase },
+      { name: 'Firebase', Icon: Firebase },
+      { name: 'SQLite', Icon: Sqlite },
+    ],
   },
   {
     name: 'AI / ML',
-    skills: ['YOLOv8', 'OpenCV', 'NumPy', 'PIL', 'Google Colab', 'Roboflow'],
+    skills: [
+      { name: 'OpenCV', Icon: Opencv },
+      { name: 'NumPy', Icon: Numpy },
+      { name: 'Google Colab', Icon: GoogleColab },
+      { name: 'Roboflow', Icon: Roboflow },
+    ],
   },
   {
     name: 'AI Automation',
-    skills: ['Claude API', 'MCP (Model Context Protocol)', 'N8N', 'Workflow Automation', 'Prompt Engineering'],
+    skills: [
+      { name: 'Claude API', Icon: Anthropic },
+      { name: 'N8N', Icon: N8n },
+    ],
   },
   {
     name: 'Tools',
-    skills: ['Git', 'GitHub', 'Vercel', 'Railway', 'Google Drive API', 'Upstash Redis'],
+    skills: [
+      { name: 'Git', Icon: Git },
+      { name: 'GitHub', Icon: Github },
+      { name: 'Vercel', Icon: Vercel },
+      { name: 'Railway', Icon: Railway },
+      { name: 'Google Drive API', Icon: GoogleDrive },
+      { name: 'Upstash Redis', Icon: Upstash },
+    ],
   },
 ]
