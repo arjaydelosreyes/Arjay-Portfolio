@@ -1,0 +1,19 @@
+# Auto-detect text files and normalise line endings
+* text=auto
+
+# Binary files — never touch line endings
+*.pdf    binary
+*.jpg    binary
+*.jpeg   binary
+*.png    binary
+*.gif    binary
+*.ico    binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.eot    binary
+*.node   binary
+*.zip    binary
+
+# SVG and web text — LF only
+*.svg    text eol=lf
