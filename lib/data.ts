@@ -22,7 +22,7 @@ export type Project = {
 export type Skill = {
   name: string
   Icon?: SvgIcon
-  monoOn?: 'light' | 'dark'
+  monoOn?: 'light' | 'dark' | 'both'
 }
 
 export type SkillCategory = {
@@ -71,7 +71,7 @@ export const skillCategories: SkillCategory[] = [
       { name: 'JavaScript', Icon: Javascript },
       { name: 'TypeScript', Icon: Typescript },
       { name: 'React 18', Icon: ReactIcon },
-      { name: 'Next.js', Icon: Nextdotjs, monoOn: 'light' },
+      { name: 'Next.js', Icon: Nextdotjs, monoOn: 'both' },
       { name: 'Tailwind CSS', Icon: TailwindCss },
       { name: 'Vite', Icon: Vite },
     ],
@@ -81,7 +81,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'Node.js', Icon: Nodedotjs },
       { name: 'Express', Icon: Expressdotjs, monoOn: 'light' },
-      { name: 'Python', Icon: Python },
+      { name: 'Python', Icon: Python, monoOn: 'both' },
       { name: 'Django REST', Icon: Djangorest },
       { name: 'FastAPI', Icon: Fastapi },
       { name: 'Socket.IO', Icon: Socketdotio, monoOn: 'light' },
@@ -91,7 +91,7 @@ export const skillCategories: SkillCategory[] = [
     name: 'Databases',
     skills: [
       { name: 'MySQL', Icon: Mysql },
-      { name: 'PostgreSQL', Icon: Postgresql },
+      { name: 'PostgreSQL', Icon: Postgresql, monoOn: 'dark' },
       { name: 'Supabase', Icon: Supabase },
       { name: 'Firebase', Icon: Firebase },
       { name: 'SQLite', Icon: Sqlite },

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useTheme } from '@/components/ThemeProvider'
 import type { Skill } from '@/lib/data'
 
 type Props = {
@@ -9,7 +10,23 @@ type Props = {
   speed?: number
 }
 
+// Returns an inline style that normalises the icon's color for the current theme.
+// Using inline styles (not CSS classes) guarantees the filter is always applied
+// regardless of Tailwind v4's JIT processing of dynamically-constructed class names.
+function iconFilter(monoOn: Skill['monoOn'], isDark: boolean): React.CSSProperties {
+  if (!monoOn) return {}
+  const mono  = { filter: 'brightness(0)',           opacity: 0.8 } as const
+  const monoI = { filter: 'brightness(0) invert(1)', opacity: 0.8 } as const
+  if (monoOn === 'light') return isDark ? {} : mono
+  if (monoOn === 'dark')  return isDark ? monoI : {}
+  if (monoOn === 'both')  return isDark ? monoI : mono
+  return {}
+}
+
 export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) {
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
+
   // Suppress the package-level dataCircle prop warning from @thesvg/react's Nextdotjs icon.
   // The icon's generated code passes "dataCircle" (camelCased data-*) to a native circle element —
   // a build bug in the package that has no upstream fix.
@@ -40,10 +57,10 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
             key={`${name}-${i}`}
             className="flex flex-col items-center gap-2 w-20 px-4 shrink-0"
           >
-            <div className={`flex items-center justify-center ${
-              monoOn === 'light' ? 'skill-icon-mono-light' :
-              monoOn === 'dark'  ? 'skill-icon-mono-dark'  : ''
-            }`}>
+            <div
+              className="flex items-center justify-center"
+              style={iconFilter(monoOn, isDark)}
+            >
               {Icon && <Icon width={36} height={36} />}
             </div>
             <span className="text-[10px] text-muted text-center leading-tight font-body w-full">
