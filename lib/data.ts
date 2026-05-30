@@ -1,14 +1,14 @@
+import type { CSSProperties } from 'react'
 import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
 import {
   Html5, Css, Javascript, Typescript,
   React as ReactIcon, TailwindCss, Vite,
-  Nodedotjs, Expressdotjs, Python, Djangorest, Fastapi, Socketdotio,
-  Mysql, Supabase, Firebase, Sqlite,
+  Nodedotjs, Expressdotjs, Djangorest, Fastapi, Socketdotio,
+  Supabase, Firebase, Sqlite,
   Opencv, Numpy, GoogleColab, Roboflow,
   Anthropic, N8n,
-  Git, Github, Vercel, Railway, GoogleDrive, Upstash,
+  Git, Github, Vercel, GoogleDrive, Upstash,
 } from '@thesvg/react'
-import NextjsIcon from '@/components/icons/NextjsIcon'
 
 export type SvgIcon = ForwardRefExoticComponent<SVGProps<SVGSVGElement> & RefAttributes<SVGSVGElement>>
 
@@ -24,6 +24,9 @@ export type Skill = {
   name: string
   Icon?: SvgIcon
   iconUrl?: string
+  iconUrlLight?: string
+  iconUrlDark?: string
+  iconStyle?: CSSProperties
   monoOn?: 'light' | 'dark' | 'both'
 }
 
@@ -73,7 +76,12 @@ export const skillCategories: SkillCategory[] = [
       { name: 'JavaScript', Icon: Javascript },
       { name: 'TypeScript', Icon: Typescript },
       { name: 'React 18', Icon: ReactIcon },
-      { name: 'Next.js', Icon: NextjsIcon, monoOn: 'both' },
+      {
+        name: 'Next.js',
+        iconUrlLight: 'https://thesvg.org/icons/nextdotjs/wordmark-light.svg',
+        iconUrlDark: 'https://thesvg.org/icons/nextdotjs/wordmark-dark.svg',
+        iconStyle: { width: 72, height: 18, objectFit: 'contain' },
+      },
       { name: 'Tailwind CSS', Icon: TailwindCss },
       { name: 'Vite', Icon: Vite },
     ],
@@ -83,7 +91,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'Node.js', Icon: Nodedotjs },
       { name: 'Express', Icon: Expressdotjs, monoOn: 'light' },
-      { name: 'Python', Icon: Python, monoOn: 'both' },
+      { name: 'Python', iconUrl: 'https://thesvg.org/icons/python/default.svg' },
       { name: 'Django REST', Icon: Djangorest },
       { name: 'FastAPI', Icon: Fastapi },
       { name: 'Socket.IO', Icon: Socketdotio, monoOn: 'light' },
@@ -92,7 +100,11 @@ export const skillCategories: SkillCategory[] = [
   {
     name: 'Databases',
     skills: [
-      { name: 'MySQL', Icon: Mysql },
+      {
+        name: 'MySQL',
+        iconUrlLight: 'https://thesvg.org/icons/mysql/light.svg',
+        iconUrlDark: 'https://thesvg.org/icons/mysql/dark.svg',
+      },
       { name: 'PostgreSQL', iconUrl: 'https://thesvg.org/icons/postgresql/mono.svg', monoOn: 'dark' },
       { name: 'Supabase', Icon: Supabase },
       { name: 'Firebase', Icon: Firebase },
@@ -121,7 +133,11 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Git', Icon: Git },
       { name: 'GitHub', Icon: Github, monoOn: 'dark' },
       { name: 'Vercel', Icon: Vercel, monoOn: 'light' },
-      { name: 'Railway', Icon: Railway },
+      {
+        name: 'Railway',
+        iconUrlLight: 'https://thesvg.org/icons/railway/light.svg',
+        iconUrlDark: 'https://thesvg.org/icons/railway/dark.svg',
+      },
       { name: 'Google Drive API', Icon: GoogleDrive },
       { name: 'Upstash Redis', Icon: Upstash },
     ],

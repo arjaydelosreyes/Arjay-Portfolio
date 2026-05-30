@@ -8,7 +8,7 @@ export default function Skills() {
   const { ref, inView } = useInView()
 
   const visibleCategories = skillCategories
-    .map(cat => ({ ...cat, skills: cat.skills.filter(s => s.Icon || s.iconUrl) }))
+    .map(cat => ({ ...cat, skills: cat.skills.filter(s => s.Icon || s.iconUrl || s.iconUrlLight || s.iconUrlDark) }))
     .filter(cat => cat.skills.length > 0)
 
   return (

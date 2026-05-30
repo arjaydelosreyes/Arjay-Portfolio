@@ -22,11 +22,13 @@ function iconFilter(monoOn: Skill['monoOn'], isDark: boolean): React.CSSProperti
   return {}
 }
 
+const DEFAULT_ICON_STYLE = { width: 36, height: 36, objectFit: 'contain' as const }
+
 export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) {
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
 
-  const iconSkills = skills.filter(s => s.Icon || s.iconUrl)
+  const iconSkills = skills.filter(s => s.Icon || s.iconUrl || s.iconUrlLight || s.iconUrlDark)
   if (iconSkills.length === 0) return null
 
   const animClass = direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right'
@@ -39,28 +41,41 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
         className={`flex w-max ${animClass}`}
         style={{ '--marquee-speed': `${speed}s` } as React.CSSProperties}
       >
-        {[...iconSkills, ...iconSkills].map(({ name, Icon, iconUrl, monoOn }, i) => (
-          <div
-            key={`${name}-${i}`}
-            className="flex flex-col items-center gap-2 w-20 px-4 shrink-0"
-          >
+        {[...iconSkills, ...iconSkills].map(({ name, Icon, iconUrl, iconUrlLight, iconUrlDark, iconStyle, monoOn }, i) => {
+          // Resolve the correct CDN URL for the current theme.
+          // Priority: single iconUrl → theme-specific → whichever is available.
+          const resolvedUrl = iconUrl
+            ?? (isDark ? iconUrlDark : iconUrlLight)
+            ?? iconUrlLight
+            ?? iconUrlDark
+
+          return (
             <div
-              className="flex items-center justify-center"
-              style={iconFilter(monoOn, isDark)}
+              key={`${name}-${i}`}
+              className="flex flex-col items-center gap-2 w-20 px-4 shrink-0"
             >
-              {iconUrl ? (
-                // Plain <img> correctly uses viewBox to scale the SVG to the given CSS dimensions.
-                // next/image with unoptimized fails on SVGs lacking intrinsic width/height attributes.
-                <img src={iconUrl} alt={name} width={36} height={36} style={{ width: 36, height: 36, objectFit: 'contain' }} />
-              ) : (
-                Icon && <Icon width={36} height={36} />
-              )}
+              <div
+                className="flex items-center justify-center"
+                style={iconFilter(monoOn, isDark)}
+              >
+                {resolvedUrl ? (
+                  // Plain <img> correctly uses viewBox to scale the SVG to the given CSS dimensions.
+                  // next/image with unoptimized fails on SVGs lacking intrinsic width/height attributes.
+                  <img
+                    src={resolvedUrl}
+                    alt={name}
+                    style={iconStyle ?? DEFAULT_ICON_STYLE}
+                  />
+                ) : (
+                  Icon && <Icon width={36} height={36} />
+                )}
+              </div>
+              <span className="text-[10px] text-muted text-center leading-tight font-body w-full">
+                {name}
+              </span>
             </div>
-            <span className="text-[10px] text-muted text-center leading-tight font-body w-full">
-              {name}
-            </span>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
