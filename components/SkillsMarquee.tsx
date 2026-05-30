@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useTheme } from '@/components/ThemeProvider'
 import type { Skill } from '@/lib/data'
 
@@ -26,7 +27,7 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
 
-  const iconSkills = skills.filter(s => s.Icon)
+  const iconSkills = skills.filter(s => s.Icon || s.iconUrl)
   if (iconSkills.length === 0) return null
 
   const animClass = direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right'
@@ -39,7 +40,7 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
         className={`flex w-max ${animClass}`}
         style={{ '--marquee-speed': `${speed}s` } as React.CSSProperties}
       >
-        {[...iconSkills, ...iconSkills].map(({ name, Icon, monoOn }, i) => (
+        {[...iconSkills, ...iconSkills].map(({ name, Icon, iconUrl, monoOn }, i) => (
           <div
             key={`${name}-${i}`}
             className="flex flex-col items-center gap-2 w-20 px-4 shrink-0"
@@ -48,7 +49,11 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
               className="flex items-center justify-center"
               style={iconFilter(monoOn, isDark)}
             >
-              {Icon && <Icon width={36} height={36} />}
+              {iconUrl ? (
+                <Image src={iconUrl} alt={name} width={36} height={36} unoptimized />
+              ) : (
+                Icon && <Icon width={36} height={36} />
+              )}
             </div>
             <span className="text-[10px] text-muted text-center leading-tight font-body w-full">
               {name}

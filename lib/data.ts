@@ -3,7 +3,7 @@ import {
   Html5, Css, Javascript, Typescript,
   React as ReactIcon, TailwindCss, Vite,
   Nodedotjs, Expressdotjs, Python, Djangorest, Fastapi, Socketdotio,
-  Mysql, Postgresql, Supabase, Firebase, Sqlite,
+  Mysql, Supabase, Firebase, Sqlite,
   Opencv, Numpy, GoogleColab, Roboflow,
   Anthropic, N8n,
   Git, Github, Vercel, Railway, GoogleDrive, Upstash,
@@ -23,6 +23,7 @@ export type Project = {
 export type Skill = {
   name: string
   Icon?: SvgIcon
+  iconUrl?: string
   monoOn?: 'light' | 'dark' | 'both'
 }
 
@@ -92,7 +93,7 @@ export const skillCategories: SkillCategory[] = [
     name: 'Databases',
     skills: [
       { name: 'MySQL', Icon: Mysql },
-      { name: 'PostgreSQL', Icon: Postgresql, monoOn: 'dark' },
+      { name: 'PostgreSQL', iconUrl: 'https://thesvg.org/icons/postgresql/default.svg' },
       { name: 'Supabase', Icon: Supabase },
       { name: 'Firebase', Icon: Firebase },
       { name: 'SQLite', Icon: Sqlite },
