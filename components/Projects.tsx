@@ -25,7 +25,7 @@ export default function Projects() {
           {projects.map(project => (
             <article
               key={project.name}
-              className="bg-background border border-border rounded-xl p-6 flex flex-col gap-4 hover:border-accent hover:shadow-sm transition-colors duration-200"
+              className="bg-background border border-border rounded-xl p-6 flex flex-col gap-4 hover:border-accent hover:-translate-y-1 hover:shadow-lg transition-all duration-300 will-change-transform"
             >
               <h3 className="font-heading font-bold text-lg text-foreground">
                 {project.name}

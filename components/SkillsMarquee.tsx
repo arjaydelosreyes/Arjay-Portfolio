@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useTheme } from '@/components/ThemeProvider'
 import type { Skill } from '@/lib/data'
 
@@ -33,7 +32,7 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
   const animClass = direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right'
 
   return (
-    <div className="overflow-hidden">
+    <div className="marquee-container overflow-hidden">
       {/* No gap-* on the track: spacing goes inside each item via px-4 so that
           -50% translateX lands exactly at the start of copy 2 (seamless loop). */}
       <div
@@ -50,7 +49,9 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
               style={iconFilter(monoOn, isDark)}
             >
               {iconUrl ? (
-                <Image src={iconUrl} alt={name} width={36} height={36} unoptimized />
+                // Plain <img> correctly uses viewBox to scale the SVG to the given CSS dimensions.
+                // next/image with unoptimized fails on SVGs lacking intrinsic width/height attributes.
+                <img src={iconUrl} alt={name} width={36} height={36} style={{ width: 36, height: 36, objectFit: 'contain' }} />
               ) : (
                 Icon && <Icon width={36} height={36} />
               )}

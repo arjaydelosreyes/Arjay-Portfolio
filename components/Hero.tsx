@@ -9,7 +9,13 @@ export default function Hero() {
   const photoSrc = resolvedTheme === 'dark' ? '/arjay-dark.jpg' : '/arjay-light.jpg'
 
   return (
-    <section id="hero" className="relative min-h-[100dvh] flex items-center scroll-mt-20">
+    <section id="hero" className="relative min-h-[100dvh] flex items-center scroll-mt-20 overflow-hidden">
+      {/* Decorative accent glow — radial gradient bloom, adds depth without glassmorphism */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 right-0 w-[40rem] h-[40rem] rounded-full"
+        style={{ background: 'radial-gradient(circle, oklch(60% 0.195 50 / 0.10) 0%, transparent 65%)' }}
+      />
       <div className="max-w-5xl mx-auto px-6 w-full py-24 pt-28">
         <div className="grid md:grid-cols-[1fr_auto] gap-12 md:gap-20 items-center">
 
