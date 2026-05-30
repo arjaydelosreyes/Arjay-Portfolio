@@ -93,7 +93,7 @@ export const skillCategories: SkillCategory[] = [
     name: 'Databases',
     skills: [
       { name: 'MySQL', Icon: Mysql },
-      { name: 'PostgreSQL', iconUrl: 'https://thesvg.org/icons/postgresql/default.svg' },
+      { name: 'PostgreSQL', iconUrl: 'https://thesvg.org/icons/postgresql/mono.svg', monoOn: 'dark' },
       { name: 'Supabase', Icon: Supabase },
       { name: 'Firebase', Icon: Firebase },
       { name: 'SQLite', Icon: Sqlite },
