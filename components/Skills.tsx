@@ -13,11 +13,6 @@ function CategoryRow({ category, index }: { category: SkillCategory; index: numb
   const { ref, inView } = useInView()
   const direction = index % 2 === 0 ? 'left' : 'right' as const
 
-  // Scale animation duration to item count so all rows scroll at the same
-  // visual pace (~21 px/s). Formula: N × 3.75s (= 8 items × 80px / 30s baseline).
-  const iconCount = category.skills.filter(hasIcon).length
-  const speed = Math.max(iconCount * 3.75, 8)
-
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
@@ -27,12 +22,12 @@ function CategoryRow({ category, index }: { category: SkillCategory; index: numb
         transition: 'opacity 550ms cubic-bezier(0.22, 1, 0.36, 1), transform 550ms cubic-bezier(0.22, 1, 0.36, 1)',
       }}
     >
-      <div className="max-w-5xl mx-auto px-6 mb-4">
+      <div className="max-w-5xl mx-auto px-6 mb-4 text-center">
         <h3 className="font-heading font-semibold text-xs text-muted uppercase tracking-[0.15em]">
           {category.name}
         </h3>
       </div>
-      <SkillsMarquee skills={category.skills} direction={direction} speed={speed} />
+      <SkillsMarquee skills={category.skills} direction={direction} />
     </div>
   )
 }
@@ -54,7 +49,7 @@ export default function Skills() {
         animation: inView ? 'fade-in-up 600ms ease-out both' : 'none',
       }}
     >
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6 text-center">
         <h2 className="font-heading font-bold text-2xl sm:text-3xl text-foreground mb-12">
           Skills
         </h2>

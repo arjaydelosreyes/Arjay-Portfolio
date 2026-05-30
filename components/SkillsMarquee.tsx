@@ -3,10 +3,13 @@
 import { useTheme } from '@/components/ThemeProvider'
 import type { Skill } from '@/lib/data'
 
+// Target visual speed in px/s — comfortable for reading icon labels.
+// Each 80px item is visible for ~2.7s as it passes.
+const TARGET_PX_PER_SECOND = 30
+
 type Props = {
   skills: Skill[]
   direction: 'left' | 'right'
-  speed?: number
 }
 
 // Returns an inline style that normalises the icon's color for the current theme.
@@ -24,7 +27,7 @@ function iconFilter(monoOn: Skill['monoOn'], isDark: boolean): React.CSSProperti
 
 const DEFAULT_ICON_STYLE = { width: 36, height: 36, objectFit: 'contain' as const }
 
-export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) {
+export default function SkillsMarquee({ skills, direction }: Props) {
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
 
@@ -32,10 +35,14 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
   if (iconSkills.length === 0) return null
 
   // Repeat enough copies so the track fills a 1920px viewport at -50% translateX.
-  // Formula: copies = ceil(24 / N) * 2 — always even so the seamless loop holds.
-  // Examples: N=2 → 24 copies; N=4 → 12; N=6 → 8; N=8 → 6.
+  // Must be even so the seamless loop holds.
   const copies = Math.max(2, Math.ceil(24 / iconSkills.length) * 2)
   const track = Array.from({ length: copies }, () => iconSkills).flat()
+
+  // Compute duration from the actual track half-width so visual speed is always
+  // TARGET_PX_PER_SECOND regardless of how many copies fill the track.
+  // The -50% keyframe scrolls exactly copies/2 × N × itemWidth pixels.
+  const duration = (copies / 2 * iconSkills.length * 80) / TARGET_PX_PER_SECOND
 
   const animClass = direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right'
 
@@ -43,10 +50,9 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
     <div className="marquee-container overflow-hidden">
       <div
         className={`flex w-max ${animClass}`}
-        style={{ '--marquee-speed': `${speed}s` } as React.CSSProperties}
+        style={{ '--marquee-speed': `${duration}s` } as React.CSSProperties}
       >
         {track.map(({ name, Icon, iconUrl, iconUrlLight, iconUrlDark, iconStyle, monoOn }, i) => {
-          // Resolve the correct CDN URL for the current theme.
           const resolvedUrl = iconUrl
             ?? (isDark ? iconUrlDark : iconUrlLight)
             ?? iconUrlLight
