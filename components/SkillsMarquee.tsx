@@ -55,7 +55,7 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
               className="flex flex-col items-center gap-2 w-20 px-4 shrink-0"
             >
               <div
-                className="flex items-center justify-center"
+                className="flex h-9 items-center justify-center"
                 style={iconFilter(monoOn, isDark)}
               >
                 {resolvedUrl ? (
