@@ -38,9 +38,9 @@ export type SkillCategory = {
 export const bio = {
   name: 'Arjay Delos Reyes',
   title: 'Full-Stack Developer & AI Automation Builder',
-  tagline: 'Building production-grade web apps and AI-powered automation workflows with Claude MCP, N8N, and modern full-stack tooling.',
+  tagline: 'Building production-grade web apps and AI-powered automation workflows with Claude Code, Claude MCP, N8N, and modern full-stack tooling.',
   summary:
-    'Graduating BS Information Technology student with hands-on experience building production-grade web applications. Sole developer of Instroom Post Tracker, a multi-tenant B2B SaaS platform. Co-developer of SagiTech, a CNN-based banana ripeness prediction system. Skilled in modern full-stack development and proficient in leveraging AI tools to accelerate development. Builds AI-driven automation workflows by connecting Claude MCP to N8N, using community workflows from GitHub to rapidly deliver production-ready automations.',
+    'Graduating BS Information Technology student with hands-on experience building production-grade web applications. Sole developer of Instroom Post Tracker, a multi-tenant B2B SaaS platform. Co-developer of SagiTech, a CNN-based banana ripeness prediction system. Skilled in modern full-stack development and proficient in leveraging AI tools to accelerate development. Builds AI-driven automation workflows by connecting Claude MCP to N8N, using community workflows from GitHub to rapidly deliver production-ready automations. Uses Claude Code as the primary AI development environment across all web and automation projects.',
   email: 'arjay09.adr43@gmail.com',
   github: 'https://github.com/arjaydelosreyes',
   location: 'Calapan City, Oriental Mindoro, Philippines',
@@ -124,6 +124,7 @@ export const skillCategories: SkillCategory[] = [
     name: 'AI Automation',
     skills: [
       { name: 'Claude API', Icon: Anthropic, monoOn: 'light' },
+      { name: 'Claude Code', iconUrl: 'https://thesvg.org/icons/claude-code/default.svg' },
       { name: 'N8N', Icon: N8n },
     ],
   },
