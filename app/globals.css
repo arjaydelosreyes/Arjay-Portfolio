@@ -50,6 +50,18 @@ html {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Subtler stagger variant for section children (About, etc.) */
+@keyframes fade-up-sm {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scale-in for project cards */
+@keyframes card-enter {
+  from { opacity: 0; transform: scale(0.98) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 @keyframes marquee-left {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
