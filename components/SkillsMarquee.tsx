@@ -31,19 +31,22 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
   const iconSkills = skills.filter(s => s.Icon || s.iconUrl || s.iconUrlLight || s.iconUrlDark)
   if (iconSkills.length === 0) return null
 
+  // Repeat enough copies so the track fills a 1920px viewport at -50% translateX.
+  // Formula: copies = ceil(24 / N) * 2 — always even so the seamless loop holds.
+  // Examples: N=2 → 24 copies; N=4 → 12; N=6 → 8; N=8 → 6.
+  const copies = Math.max(2, Math.ceil(24 / iconSkills.length) * 2)
+  const track = Array.from({ length: copies }, () => iconSkills).flat()
+
   const animClass = direction === 'left' ? 'animate-marquee-left' : 'animate-marquee-right'
 
   return (
     <div className="marquee-container overflow-hidden">
-      {/* No gap-* on the track: spacing goes inside each item via px-4 so that
-          -50% translateX lands exactly at the start of copy 2 (seamless loop). */}
       <div
         className={`flex w-max ${animClass}`}
         style={{ '--marquee-speed': `${speed}s` } as React.CSSProperties}
       >
-        {[...iconSkills, ...iconSkills].map(({ name, Icon, iconUrl, iconUrlLight, iconUrlDark, iconStyle, monoOn }, i) => {
+        {track.map(({ name, Icon, iconUrl, iconUrlLight, iconUrlDark, iconStyle, monoOn }, i) => {
           // Resolve the correct CDN URL for the current theme.
-          // Priority: single iconUrl → theme-specific → whichever is available.
           const resolvedUrl = iconUrl
             ?? (isDark ? iconUrlDark : iconUrlLight)
             ?? iconUrlLight
@@ -59,13 +62,7 @@ export default function SkillsMarquee({ skills, direction, speed = 30 }: Props) 
                 style={iconFilter(monoOn, isDark)}
               >
                 {resolvedUrl ? (
-                  // Plain <img> correctly uses viewBox to scale the SVG to the given CSS dimensions.
-                  // next/image with unoptimized fails on SVGs lacking intrinsic width/height attributes.
-                  <img
-                    src={resolvedUrl}
-                    alt={name}
-                    style={iconStyle ?? DEFAULT_ICON_STYLE}
-                  />
+                  <img src={resolvedUrl} alt={name} style={iconStyle ?? DEFAULT_ICON_STYLE} />
                 ) : (
                   Icon && <Icon width={36} height={36} />
                 )}
