@@ -18,7 +18,7 @@ export default function Contact() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="contact"
-      className="py-24 px-6 bg-surface"
+      className="py-16 md:py-24 px-6 bg-surface"
       style={{ opacity: inView ? 1 : 0, animation: inView ? 'fade-in-up 600ms ease-out both' : 'none' }}
     >
       <div className="max-w-2xl mx-auto text-center">
@@ -47,7 +47,7 @@ export default function Contact() {
             Message sent. I&apos;ll reply within a day.
           </div>
         ) : (
-          <form action={action} className="flex flex-col gap-3 text-left mb-10">
+          <form action={action} className="flex flex-col gap-4 text-left mb-10">
             <input name="name" type="text" placeholder="Your name" required autoComplete="name" className={inputClass} />
             <input name="email" type="email" placeholder="Your email" required autoComplete="email" className={inputClass} />
             <textarea name="message" rows={4} placeholder="What's on your mind?" required className={`${inputClass} resize-none`} />

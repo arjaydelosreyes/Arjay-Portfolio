@@ -28,14 +28,16 @@ export default function Hero() {
         }}
       />
 
-      {/* Spacer — absorbs empty space above, pushes content toward bottom */}
-      <div className="flex-1" />
+      {/* Viewport-proportional spacer: 22vh scales with screen height.
+          max-h-52 caps at 208px so content isn't pushed too far down on tall desktops.
+          This replaces the old flex-1 which took ALL available space. */}
+      <div className="h-[22vh] max-h-52 shrink-0" />
 
-      {/* Main content */}
-      <div className="relative max-w-5xl mx-auto px-6 w-full pb-6 pt-28" style={{ zIndex: 2 }}>
+      {/* Main content — no pt-28 (spacer handles the top gap) */}
+      <div className="relative max-w-5xl mx-auto px-6 w-full pb-6" style={{ zIndex: 2 }}>
 
         {/* Available badge */}
-        <div className="mb-12" style={{ animation: `fade-in-up 500ms ${EASE} 200ms both` }}>
+        <div className="mb-8 md:mb-12" style={{ animation: `fade-in-up 500ms ${EASE} 200ms both` }}>
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border text-muted text-[11px] font-medium tracking-[0.12em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-live animate-pulse" aria-hidden="true" />
             Available for work
@@ -99,9 +101,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue — in normal flow, always below content, never collides */}
+      {/* Scroll cue — mt-auto pins it to section bottom, always below content */}
       <div
-        className="flex flex-col items-center gap-3 text-muted py-8 w-full"
+        className="mt-auto flex flex-col items-center gap-3 text-muted py-8 w-full"
         aria-hidden="true"
         style={{ animation: `fade-in-up 600ms ${EASE} 1300ms both`, zIndex: 2 }}
       >

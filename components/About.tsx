@@ -25,7 +25,7 @@ export default function About() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="about"
-      className="py-24 px-6"
+      className="py-16 md:py-24 px-6"
     >
       <div className="max-w-5xl mx-auto">
 

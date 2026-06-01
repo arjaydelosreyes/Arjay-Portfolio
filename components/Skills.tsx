@@ -41,7 +41,7 @@ export default function Skills() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="skills"
-      className="py-24"
+      className="py-16 md:py-24"
       style={{ opacity: inView ? 1 : 0, animation: inView ? 'fade-in-up 600ms ease-out both' : 'none' }}
     >
       <div className="max-w-5xl mx-auto px-6 text-center">

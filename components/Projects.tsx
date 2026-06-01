@@ -88,7 +88,7 @@ export default function Projects() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="projects"
-      className="py-24 px-6 bg-surface"
+      className="py-16 md:py-24 px-6 bg-surface"
       style={{ opacity: inView ? 1 : 0, animation: inView ? 'fade-in-up 600ms ease-out both' : 'none' }}
     >
       <div className="max-w-5xl mx-auto">
