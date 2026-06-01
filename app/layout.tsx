@@ -35,7 +35,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme')||'light';document.documentElement.classList.toggle('dark',t==='dark');document.querySelector('meta[name=theme-color]')?.setAttribute('content',t==='dark'?'oklch(12% 0.010 65)':'oklch(98.5% 0.006 65)')}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.classList.toggle('dark',t==='dark');document.querySelector('meta[name=theme-color]')?.setAttribute('content',t==='dark'?'oklch(12% 0.010 65)':'oklch(98.5% 0.006 65)')}catch(e){}})()`,
           }}
         />
         <meta name="theme-color" content="oklch(98.5% 0.006 65)" />

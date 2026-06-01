@@ -1,11 +1,12 @@
 'use client'
 
+import type { CSSProperties } from 'react'
 import { useInView } from '@/hooks/useInView'
 import { projects, type Project } from '@/lib/data'
+import WordReveal from '@/components/WordReveal'
 
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
-// Each card manages its own scroll observer so they animate in independently.
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { ref, inView } = useInView()
   const isFeatured = !!project.liveUrl
@@ -15,9 +16,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       ref={ref as React.RefObject<HTMLElement>}
       style={{
         opacity: inView ? undefined : 0,
-        animation: inView
-          ? `card-enter 550ms ${EASE} ${index * 150}ms both`
-          : 'none',
+        animation: inView ? `card-enter 550ms ${EASE} ${index * 150}ms both` : 'none',
       }}
       className={`
         rounded-xl p-6 flex flex-col gap-4
@@ -28,11 +27,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           : 'bg-background border-border hover:border-accent'}
       `}
     >
-      {/* Featured badge */}
       {isFeatured && (
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent/15 border border-accent/25 text-accent text-[10px] font-semibold uppercase tracking-wide">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-live/10 border border-live/25 text-live text-[10px] font-semibold uppercase tracking-wide">
+            <span className="w-1.5 h-1.5 rounded-full bg-live animate-pulse" aria-hidden="true" />
             Live
           </span>
         </div>
@@ -42,16 +40,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {project.name}
       </h3>
 
-      <p className="text-muted text-sm leading-relaxed flex-1">
-        {project.description}
-      </p>
+      <p className="text-muted text-sm leading-relaxed flex-1">{project.description}</p>
 
       <div className="flex flex-wrap gap-2">
         {project.tags.map(tag => (
-          <span
-            key={tag}
-            className="text-xs px-2 py-1 rounded bg-surface border border-border text-muted"
-          >
+          <span key={tag} className="text-xs px-2 py-1 rounded bg-surface border border-border text-muted">
             {tag}
           </span>
         ))}
@@ -77,7 +70,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`GitHub repository for ${project.name}`}
+            aria-label={`GitHub for ${project.name}`}
             className="text-muted text-sm hover:text-foreground transition-colors inline-flex items-center gap-1"
           >
             GitHub ↗
@@ -96,15 +89,21 @@ export default function Projects() {
       ref={ref as React.RefObject<HTMLElement>}
       id="projects"
       className="py-24 px-6 bg-surface"
-      style={{
-        opacity: inView ? 1 : 0,
-        animation: inView ? 'fade-in-up 600ms ease-out both' : 'none',
-      }}
+      style={{ opacity: inView ? 1 : 0, animation: inView ? 'fade-in-up 600ms ease-out both' : 'none' }}
     >
       <div className="max-w-5xl mx-auto">
-        <h2 className="font-heading font-bold text-2xl sm:text-3xl text-foreground mb-12">
-          Projects
-        </h2>
+
+        <div className="section-label">Projects</div>
+
+        {/* Word-reveal subheading */}
+        <WordReveal
+          className="font-heading font-extrabold text-foreground mb-12"
+          style={{ fontSize: 'clamp(22px, 3.5vw, 38px)', lineHeight: 1.15, letterSpacing: '-0.03em' } as CSSProperties}
+          delay={60}
+          stagger={55}
+        >
+          {`Things I've shipped to production.`}
+        </WordReveal>
 
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, i) => (

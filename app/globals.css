@@ -1,20 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors — each --color-* variable creates Tailwind utilities like bg-background, text-foreground, etc. */
   --color-background: var(--background);
-  --color-surface: var(--surface);
+  --color-surface:    var(--surface);
   --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-border: var(--border);
+  --color-muted:      var(--muted);
+  --color-accent:     var(--accent);
+  --color-border:     var(--border);
+  --color-live:       var(--live);
 
-  /* Font families */
   --font-heading: var(--font-bricolage), sans-serif;
-  --font-body: var(--font-figtree), sans-serif;
+  --font-body:    var(--font-figtree), sans-serif;
 }
 
-/* Light mode values */
+/* ─── Light mode ──────────────────────────────────── */
 :root {
   --background: oklch(98.5% 0.006 65);
   --surface:    oklch(96%   0.008 65);
@@ -22,44 +21,55 @@
   --muted:      oklch(44%   0.015 65);
   --accent:     oklch(60%   0.195 50);
   --border:     oklch(88%   0.010 65);
+  --live:       oklch(50%   0.17  145);
 }
 
-/* Dark mode */
+/* ─── Dark mode — cinematic deep black ───────────── */
 html.dark {
-  --background: oklch(12%   0.010 65);
-  --surface:    oklch(17%   0.012 65);
-  --foreground: oklch(96%   0.006 65);
-  --muted:      oklch(60%   0.012 65);
+  --background: oklch(5%    0.005 65);
+  --surface:    oklch(9%    0.007 65);
+  --foreground: oklch(97%   0.004 65);
+  --muted:      oklch(38%   0.008 65);
   --accent:     oklch(72%   0.175 50);
-  --border:     oklch(24%   0.012 65);
+  --border:     oklch(14%   0.008 65);
+  --live:       oklch(73%   0.17  145);
 }
 
-/* Base styles */
+/* ─── Base ────────────────────────────────────────── */
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-figtree), sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
+/* ─── Keyframes ───────────────────────────────────── */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Subtler stagger variant for section children (About, etc.) */
 @keyframes fade-up-sm {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Scale-in for project cards */
 @keyframes card-enter {
   from { opacity: 0; transform: scale(0.98) translateY(8px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Character-by-character kinetic reveal for hero */
+@keyframes charReveal {
+  from { opacity: 0; transform: translateY(40px) rotate(-2deg) scaleX(0.9); }
+  to   { opacity: 1; transform: translateY(0) rotate(0deg) scaleX(1); }
+}
+
+/* Horizontal rule grow from left */
+@keyframes ruleGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 
 @keyframes marquee-left {
@@ -72,32 +82,62 @@ html {
   to   { transform: translateX(0); }
 }
 
-.animate-marquee-left {
-  animation: marquee-left var(--marquee-speed, 30s) linear infinite;
-}
+/* ─── Marquee ─────────────────────────────────────── */
+.animate-marquee-left  { animation: marquee-left  var(--marquee-speed, 30s) linear infinite; }
+.animate-marquee-right { animation: marquee-right var(--marquee-speed, 30s) linear infinite; }
 
-.animate-marquee-right {
-  animation: marquee-right var(--marquee-speed, 30s) linear infinite;
-}
-
-/* Edge gradient mask — fades marquee icons at left/right edges */
 .marquee-container {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image:         linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-/* Pause the scroll when the user hovers over a skill category row */
 .marquee-container:hover .animate-marquee-left,
 .marquee-container:hover .animate-marquee-right {
   animation-play-state: paused;
 }
 
+/* ─── Editorial layout utilities ─────────────────── */
 
+/* Section label: "— ABOUT" with a leading rule line */
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.section-label::before {
+  content: '';
+  flex: 0 0 30px;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Hero horizontal rule that grows from left on load */
+.hero-rule {
+  height: 1px;
+  background: var(--border);
+  transform-origin: left;
+  animation: ruleGrow 0.8s cubic-bezier(0.16,1,0.3,1) 0.85s both;
+}
+
+/* Film grain texture overlay for hero */
+.film-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* ─── Accessibility ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
-/* Smooth anchor scroll offset for fixed floating nav */
-:target {
-  scroll-margin-top: 5rem;
-}
+:target { scroll-margin-top: 5rem; }

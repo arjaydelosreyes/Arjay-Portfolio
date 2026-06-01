@@ -7,8 +7,6 @@ import SkillsMarquee from '@/components/SkillsMarquee'
 const hasIcon = (s: SkillCategory['skills'][number]) =>
   s.Icon || s.iconUrl || s.iconUrlLight || s.iconUrlDark
 
-// Each category row manages its own IntersectionObserver so rows animate in
-// independently as the user scrolls, not all at once when the section appears.
 function CategoryRow({ category, index }: { category: SkillCategory; index: number }) {
   const { ref, inView } = useInView()
   const direction = index % 2 === 0 ? 'left' : 'right' as const
@@ -44,15 +42,11 @@ export default function Skills() {
       ref={ref as React.RefObject<HTMLElement>}
       id="skills"
       className="py-24"
-      style={{
-        opacity: inView ? 1 : 0,
-        animation: inView ? 'fade-in-up 600ms ease-out both' : 'none',
-      }}
+      style={{ opacity: inView ? 1 : 0, animation: inView ? 'fade-in-up 600ms ease-out both' : 'none' }}
     >
       <div className="max-w-5xl mx-auto px-6 text-center">
-        <h2 className="font-heading font-bold text-2xl sm:text-3xl text-foreground mb-12">
-          Skills
-        </h2>
+        <h2 className="sr-only">Skills</h2>
+        <div className="section-label justify-center mb-12">Skills</div>
       </div>
 
       <div className="flex flex-col gap-10">
