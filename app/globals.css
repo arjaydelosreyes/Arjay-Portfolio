@@ -101,7 +101,7 @@ html {
 
 /* ─── Editorial layout utilities ─────────────────── */
 
-/* Section label: "— ABOUT" with a leading rule line */
+/* Section label: "SKILLS" uppercase category label */
 .section-label {
   font-size: 10px;
   letter-spacing: 0.25em;
@@ -109,14 +109,7 @@ html {
   color: var(--muted);
   display: flex;
   align-items: center;
-  gap: 14px;
   margin-bottom: 48px;
-}
-.section-label::before {
-  content: '';
-  flex: 0 0 30px;
-  height: 1px;
-  background: var(--border);
 }
 
 /* Hero horizontal rule that grows from left on load */

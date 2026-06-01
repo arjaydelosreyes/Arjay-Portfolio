@@ -45,7 +45,7 @@ export const bio = {
   github: 'https://github.com/arjaydelosreyes',
   location: 'Calapan City, Oriental Mindoro, Philippines',
   certification: {
-    name: 'IT Specialist — Data Analytics',
+    name: 'IT Specialist: Data Analytics',
     issuer: 'Certiport / CertNexus',
     date: 'December 16, 2025',
   },
