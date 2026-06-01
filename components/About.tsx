@@ -52,8 +52,12 @@ export default function About() {
             {bio.summary}
           </p>
 
-          {/* Right: credentials + location (desktop) */}
+          {/* Right: photo + credentials + location (desktop) */}
           <div className="hidden md:flex flex-col gap-5">
+            {/* Profile photo */}
+            <div className="relative w-full aspect-[2/3] overflow-hidden rounded-2xl border border-border" style={staggerStyle(2, inView)}>
+              <Image src={photoSrc} alt="Arjay Delos Reyes" fill className="object-cover" sizes="(min-width: 768px) 50vw, 0px" unoptimized />
+            </div>
             <div style={staggerStyle(3, inView)}>
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface">
                 <div className="mt-0.5 w-9 h-9 rounded-full bg-accent/15 flex items-center justify-center shrink-0">
