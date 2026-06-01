@@ -41,7 +41,7 @@ export default function Hero() {
         {/* Kinetic name — characters animate in individually */}
         <h1
           className="font-heading font-black leading-[0.87] tracking-[-0.04em] mb-0 select-none"
-          style={{ fontSize: 'clamp(64px, 12vw, 140px)' }}
+          style={{ fontSize: 'clamp(36px, 12vw, 140px)' }}
           aria-label={bio.name}
         >
           {/* "Arjay" — foreground */}
@@ -53,7 +53,7 @@ export default function Hero() {
             ))}
           </span>
           {/* "Delos Reyes" — ghost tone for typographic depth */}
-          <span className="block text-muted/40" aria-hidden="true">
+          <span className="block text-muted/40" style={{ fontSize: '0.82em' }} aria-hidden="true">
             {lastName.split('').map((c, i) => (
               <span key={i} className="inline-block" style={charStyle(550 + i * 45)}>
                 {c === ' ' ? ' ' : c}
