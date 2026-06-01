@@ -16,7 +16,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="film-grain relative min-h-[100dvh] flex flex-col justify-end overflow-hidden"
+      className="film-grain relative min-h-[100dvh] flex flex-col overflow-hidden"
     >
       {/* Ambient glow — top-right, very subtle */}
       <div
@@ -28,7 +28,11 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative max-w-5xl mx-auto px-6 w-full pb-20 pt-28" style={{ zIndex: 2 }}>
+      {/* Spacer — absorbs empty space above, pushes content toward bottom */}
+      <div className="flex-1" />
+
+      {/* Main content */}
+      <div className="relative max-w-5xl mx-auto px-6 w-full pb-6 pt-28" style={{ zIndex: 2 }}>
 
         {/* Available badge */}
         <div className="mb-12" style={{ animation: `fade-in-up 500ms ${EASE} 200ms both` }}>
@@ -52,11 +56,11 @@ export default function Hero() {
               </span>
             ))}
           </span>
-          {/* "Delos Reyes" — ghost tone for typographic depth */}
+          {/* "Delos Reyes" — ghost tone, slightly smaller for typographic hierarchy */}
           <span className="block text-muted/40" style={{ fontSize: '0.82em' }} aria-hidden="true">
             {lastName.split('').map((c, i) => (
               <span key={i} className="inline-block" style={charStyle(550 + i * 45)}>
-                {c === ' ' ? ' ' : c}
+                {c === ' ' ? ' ' : c}
               </span>
             ))}
           </span>
@@ -95,9 +99,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue */}
+      {/* Scroll cue — in normal flow, always below content, never collides */}
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-muted"
+        className="flex flex-col items-center gap-3 text-muted py-8 w-full"
         aria-hidden="true"
         style={{ animation: `fade-in-up 600ms ${EASE} 1300ms both`, zIndex: 2 }}
       >
