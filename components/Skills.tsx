@@ -17,7 +17,7 @@ function CategoryRow({ category, index }: { category: SkillCategory; index: numb
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateX(0)' : `translateX(${direction === 'left' ? '-24px' : '24px'})`,
-        transition: 'opacity 550ms cubic-bezier(0.22, 1, 0.36, 1), transform 550ms cubic-bezier(0.22, 1, 0.36, 1)',
+        transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1), transform 450ms cubic-bezier(0.23, 1, 0.32, 1)',
       }}
     >
       <div className="max-w-5xl mx-auto px-6 mb-4 text-center">
@@ -41,7 +41,7 @@ export default function Skills() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="skills"
-      className="py-16 md:py-24"
+      className="py-24 md:py-36"
       style={{ opacity: inView ? 1 : 0, animation: inView ? 'fade-in-up 600ms ease-out both' : 'none' }}
     >
       <div className="max-w-5xl mx-auto px-6 text-center">

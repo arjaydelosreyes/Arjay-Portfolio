@@ -22,6 +22,9 @@
   --accent:     oklch(60%   0.195 50);
   --border:     oklch(88%   0.010 65);
   --live:       oklch(62%   0.22  145);
+
+  /* Unified easing — expo-out, Emil Kowalski standard */
+  --ease-expo: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* ─── Dark mode — cinematic deep black ───────────── */
@@ -85,6 +88,18 @@ html {
   to   { transform: translateX(0); }
 }
 
+/* Gentle float for scroll cue */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Slow ambient pulse for hero glow */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.04; }
+  50%       { opacity: 0.09; }
+}
+
 /* ─── Marquee ─────────────────────────────────────── */
 .animate-marquee-left  { animation: marquee-left  var(--marquee-speed, 30s) linear infinite; }
 .animate-marquee-right { animation: marquee-right var(--marquee-speed, 30s) linear infinite; }
@@ -117,7 +132,7 @@ html {
   height: 1px;
   background: var(--border);
   transform-origin: left;
-  animation: ruleGrow 0.8s cubic-bezier(0.16,1,0.3,1) 0.85s both;
+  animation: ruleGrow 0.5s var(--ease-expo) 0.85s both;
 }
 
 /* Film grain texture overlay for hero */
@@ -131,6 +146,53 @@ html {
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   z-index: 0;
+}
+
+/* ─── Utility animations ─────────────────────────── */
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -1px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 220ms var(--ease-expo);
+}
+.link-underline:hover::after { transform: scaleX(1); }
+
+/* Active-press scale for all buttons — Emil Kowalski standard */
+.btn-active:active { transform: scale(0.97) !important; }
+
+/* ─── Code-motion cursor trail ────────────────────── */
+
+@keyframes code-trail-up {
+  from { opacity: 0.65; transform: translateY(0); }
+  to   { opacity: 0;    transform: translateY(-32px); }
+}
+
+.code-trail-char {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 3px;
+  animation: code-trail-up 550ms ease-out forwards;
+  user-select: none;
 }
 
 /* ─── Accessibility ───────────────────────────────── */

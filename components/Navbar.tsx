@@ -40,7 +40,7 @@ export default function Navbar() {
         <a
           href="#"
           aria-label="Home"
-          className="pointer-events-auto font-heading font-bold tracking-tight text-base select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded-sm"
+          className="pointer-events-auto font-heading font-bold tracking-tight text-base select-none hover:scale-[1.04] transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded-sm"
         >
           <span className="text-accent">A</span><span className="text-foreground">DR</span>
         </a>
@@ -58,7 +58,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
+                  className={`link-underline px-3 py-1.5 rounded-full text-sm font-medium transition-[color,background-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 ${
                     isActive
                       ? 'text-accent bg-accent/15'
                       : 'text-muted hover:text-foreground hover:bg-surface/60'
@@ -77,7 +77,7 @@ export default function Navbar() {
           <button
             aria-label="Toggle theme"
             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-            className="w-9 h-9 flex items-center justify-center rounded-full border border-border bg-background/90 backdrop-blur text-muted hover:text-foreground hover:bg-surface transition-colors duration-200 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-border bg-background/90 backdrop-blur text-muted hover:text-foreground hover:bg-surface transition-colors duration-200 shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
           >
             {resolvedTheme === 'dark' ? (
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
@@ -102,7 +102,7 @@ export default function Navbar() {
           <button
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-border bg-background/90 backdrop-blur text-muted hover:text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
+            className="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-border bg-background/90 backdrop-blur text-muted hover:text-foreground shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
             onClick={() => setMenuOpen(v => !v)}
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">

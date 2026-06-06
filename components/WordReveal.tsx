@@ -30,7 +30,7 @@ export default function WordReveal({ children, className = '', style, delay = 0,
             style={{
               transform: inView ? 'translateY(0)' : 'translateY(110%)',
               opacity: inView ? 1 : 0,
-              transition: `transform 0.65s cubic-bezier(0.16,1,0.3,1) ${delay + i * stagger}ms, opacity 0.4s ease ${delay + i * stagger}ms`,
+              transition: `transform 0.45s cubic-bezier(0.23,1,0.32,1) ${delay + i * stagger}ms, opacity 0.3s cubic-bezier(0.23,1,0.32,1) ${delay + i * stagger}ms`,
             } as CSSProperties}
           >
             {word}

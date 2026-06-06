@@ -3,10 +3,10 @@
 import type { CSSProperties } from 'react'
 import { bio } from '@/lib/data'
 
-const EASE = 'cubic-bezier(0.16,1,0.3,1)'
+const EASE = 'cubic-bezier(0.23,1,0.32,1)'
 
 function charStyle(delay: number): CSSProperties {
-  return { animation: `charReveal 600ms ${EASE} ${delay}ms both` }
+  return { animation: `charReveal 500ms ${EASE} ${delay}ms both` }
 }
 
 export default function Hero() {
@@ -24,6 +24,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background: 'radial-gradient(ellipse 55% 55% at 80% 5%, oklch(97% 0.004 65 / 0.04) 0%, transparent 100%)',
+          animation: 'glow-pulse 6s ease-in-out infinite',
           zIndex: 1,
         }}
       />
@@ -83,17 +84,17 @@ export default function Hero() {
           <div className="flex gap-3 flex-wrap">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 active:scale-[0.98] transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 hover:-translate-y-[2px] hover:shadow-[0_6px_20px_oklch(15%_0.015_65/0.12)] active:scale-[0.97] transition-[transform,box-shadow,opacity] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2"
             >
               View Projects
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-[2px] group-hover:-translate-y-[2px]">
                 <path d="M2 8L8 2M8 2H4M8 2V6" />
               </svg>
             </a>
             <a
               href="/resume.pdf"
               download="Arjay_Delos_Reyes_Resume.pdf"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-border text-muted text-sm font-medium hover:text-foreground hover:border-foreground/30 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-border text-muted text-sm font-medium hover:text-foreground hover:border-foreground/30 hover:-translate-y-[2px] active:scale-[0.97] transition-[transform,color,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border focus-visible:ring-offset-2"
             >
               Resume
             </a>
@@ -108,7 +109,7 @@ export default function Hero() {
         style={{ animation: `fade-in-up 600ms ${EASE} 1300ms both`, zIndex: 2 }}
       >
         <span className="text-[9px] tracking-[0.3em] uppercase">Scroll</span>
-        <div className="w-px h-8 bg-border" />
+        <div className="w-px h-8 bg-border animate-float" />
       </div>
     </section>
   )

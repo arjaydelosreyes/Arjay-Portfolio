@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Bricolage_Grotesque, Figtree } from 'next/font/google'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import Cursor from '@/components/Cursor'
 import './globals.css'
 
 const bricolage = Bricolage_Grotesque({
@@ -47,7 +48,10 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Cursor />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
