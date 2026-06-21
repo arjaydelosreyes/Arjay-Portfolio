@@ -104,7 +104,7 @@ export default function Hero() {
           <span ref={firstNameRef} className="block text-foreground" aria-hidden="true">
             Arjay
           </span>
-          <span ref={lastNameRef} className="block text-muted/40" style={{ fontSize: '0.82em' }} aria-hidden="true">
+          <span ref={lastNameRef} className="block text-accent" style={{ fontSize: '0.82em' }} aria-hidden="true">
             Delos Reyes
           </span>
         </h1>
