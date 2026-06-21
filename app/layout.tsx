@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import { Bricolage_Grotesque, Figtree } from 'next/font/google'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import Cursor from '@/components/Cursor'
+import LenisGSAPSync from '@/components/LenisGSAPSync'
+import ScrollColorShift from '@/components/ScrollColorShift'
+import { ReactLenis } from 'lenis/react'
 import './globals.css'
 
 const bricolage = Bricolage_Grotesque({
@@ -48,10 +51,14 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <ThemeProvider>
-          <Cursor />
-          {children}
-        </ThemeProvider>
+        <ReactLenis root options={{ autoRaf: false }}>
+          <LenisGSAPSync />
+          <ScrollColorShift />
+          <ThemeProvider>
+            <Cursor />
+            {children}
+          </ThemeProvider>
+        </ReactLenis>
       </body>
     </html>
   )

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { gsap } from '@/lib/gsap'
 
 const TOKENS = ['{', '}', '(', ')', '[', ']', '/', '*', ';', '=', '>', '<', '=>', '.', ':', '//']
 const SPAWN_DIST = 12
@@ -12,7 +13,14 @@ function spawnTrail(x: number, y: number) {
   el.style.left = `${x + (Math.random() * 12 - 6)}px`
   el.style.top  = `${y - 4}px`
   document.body.appendChild(el)
-  setTimeout(() => el.remove(), 570)
+
+  gsap.to(el, {
+    y: -32,
+    opacity: 0,
+    duration: 0.55,
+    ease: 'power2.out',
+    onComplete: () => el.remove(),
+  })
 }
 
 export default function Cursor() {

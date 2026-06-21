@@ -1,21 +1,73 @@
 'use client'
 
-import type { CSSProperties } from 'react'
+import { useEffect, useRef } from 'react'
 import { bio } from '@/lib/data'
-
-const EASE = 'cubic-bezier(0.23,1,0.32,1)'
-
-function charStyle(delay: number): CSSProperties {
-  return { animation: `charReveal 500ms ${EASE} ${delay}ms both` }
-}
+import { gsap } from '@/lib/gsap'
+import SplitType from 'split-type'
 
 export default function Hero() {
-  const firstName = 'Arjay'
-  const lastName  = 'Delos Reyes'
+  const sectionRef   = useRef<HTMLElement>(null)
+  const firstNameRef = useRef<HTMLSpanElement>(null)
+  const lastNameRef  = useRef<HTMLSpanElement>(null)
+  const badgeRef     = useRef<HTMLDivElement>(null)
+  const ruleRef      = useRef<HTMLDivElement>(null)
+  const metaRef      = useRef<HTMLDivElement>(null)
+  const scrollCueRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) return
+
+    const splitFirst = new SplitType(firstNameRef.current!, { types: 'chars' })
+    const splitLast  = new SplitType(lastNameRef.current!,  { types: 'chars' })
+
+    const chaosVars = {
+      duration: 1.2,
+      ease: 'elastic.out(1, 0.5)',
+      stagger: 0.04,
+    }
+
+    const tl = gsap.timeline()
+
+    tl.from(badgeRef.current, { y: 16, opacity: 0, duration: 0.5, ease: 'expo.out' }, 0)
+      .from(splitFirst.chars!, {
+        x: () => gsap.utils.random(-300, 300),
+        y: () => gsap.utils.random(-200, 200),
+        rotation: () => gsap.utils.random(-180, 180),
+        scale: 0,
+        opacity: 0,
+        ...chaosVars,
+      }, 0.1)
+      .from(splitLast.chars!, {
+        x: () => gsap.utils.random(-300, 300),
+        y: () => gsap.utils.random(-200, 200),
+        rotation: () => gsap.utils.random(-180, 180),
+        scale: 0,
+        opacity: 0,
+        ...chaosVars,
+      }, 0.5)
+      .from(ruleRef.current, { scaleX: 0, transformOrigin: 'left center', duration: 0.5, ease: 'expo.out' }, 1.3)
+      .from(metaRef.current, { y: 20, opacity: 0, duration: 0.5, ease: 'expo.out' }, 1.6)
+      .from(scrollCueRef.current, { y: 20, opacity: 0, duration: 0.5, ease: 'expo.out' }, 1.9)
+
+    // Scroll cue float
+    const line = scrollCueRef.current?.querySelector<HTMLElement>('.scroll-cue-line')
+    if (line) {
+      gsap.to(line, { y: -6, duration: 1.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.5 })
+    }
+
+    return () => {
+      tl.kill()
+      splitFirst.revert()
+      splitLast.revert()
+    }
+  }, [])
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
+      aria-label="Introduction"
       className="film-grain relative min-h-[100dvh] flex flex-col overflow-hidden"
     >
       {/* Ambient glow — top-right, very subtle */}
@@ -29,53 +81,41 @@ export default function Hero() {
         }}
       />
 
-      {/* Viewport-proportional spacer: 22vh scales with screen height.
-          max-h-52 caps at 208px so content isn't pushed too far down on tall desktops.
-          This replaces the old flex-1 which took ALL available space. */}
       <div className="h-[22vh] max-h-52 shrink-0" />
 
-      {/* Main content — no pt-28 (spacer handles the top gap) */}
-      <div className="relative max-w-5xl mx-auto px-6 w-full pb-6" style={{ zIndex: 2 }}>
-
+      <div
+        className="relative max-w-5xl mx-auto px-6 w-full pb-6"
+        style={{ zIndex: 2 }}
+      >
         {/* Available badge */}
-        <div className="mb-8 md:mb-12" style={{ animation: `fade-in-up 500ms ${EASE} 200ms both` }}>
+        <div ref={badgeRef} className="mb-8 md:mb-12">
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border text-muted text-[11px] font-medium tracking-[0.12em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-live animate-pulse" aria-hidden="true" />
             Available for work
           </span>
         </div>
 
-        {/* Kinetic name — characters animate in individually */}
+        {/* Kinetic name */}
         <h1
           className="font-heading font-black leading-[0.87] tracking-[-0.04em] mb-0 select-none"
-          style={{ fontSize: 'clamp(36px, 12vw, 140px)' }}
+          style={{ fontSize: 'clamp(36px, 10vw, 120px)' }}
           aria-label={bio.name}
         >
-          {/* "Arjay" — foreground */}
-          <span className="block text-foreground" aria-hidden="true">
-            {firstName.split('').map((c, i) => (
-              <span key={i} className="inline-block" style={charStyle(300 + i * 55)}>
-                {c}
-              </span>
-            ))}
+          <span ref={firstNameRef} className="block text-foreground" aria-hidden="true">
+            Arjay
           </span>
-          {/* "Delos Reyes" — ghost tone, slightly smaller for typographic hierarchy */}
-          <span className="block text-muted/40" style={{ fontSize: '0.82em' }} aria-hidden="true">
-            {lastName.split('').map((c, i) => (
-              <span key={i} className="inline-block" style={charStyle(550 + i * 45)}>
-                {c === ' ' ? ' ' : c}
-              </span>
-            ))}
+          <span ref={lastNameRef} className="block text-muted/40" style={{ fontSize: '0.82em' }} aria-hidden="true">
+            Delos Reyes
           </span>
         </h1>
 
-        {/* Horizontal rule — grows from left after name finishes */}
-        <div className="hero-rule my-8 md:my-10" />
+        {/* Horizontal rule — GSAP animates scaleX from 0 */}
+        <div ref={ruleRef} className="hero-rule my-8 md:my-10" />
 
         {/* Meta row: title + CTAs */}
         <div
+          ref={metaRef}
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6"
-          style={{ animation: `fade-in-up 700ms ${EASE} 1050ms both` }}
         >
           <p className="text-muted text-xs leading-relaxed max-w-[44ch] uppercase tracking-[0.07em]">
             {bio.title}
@@ -94,6 +134,7 @@ export default function Hero() {
             <a
               href="/resume.pdf"
               download="Arjay_Delos_Reyes_Resume.pdf"
+              aria-label="Download Resume"
               className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-border text-muted text-sm font-medium hover:text-foreground hover:border-foreground/30 hover:-translate-y-[2px] active:scale-[0.97] transition-[transform,color,border-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border focus-visible:ring-offset-2"
             >
               Resume
@@ -102,14 +143,15 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue — mt-auto pins it to section bottom, always below content */}
+      {/* Scroll cue */}
       <div
+        ref={scrollCueRef}
         className="mt-auto flex flex-col items-center gap-3 text-muted py-8 w-full"
         aria-hidden="true"
-        style={{ animation: `fade-in-up 600ms ${EASE} 1300ms both`, zIndex: 2 }}
+        style={{ zIndex: 2 }}
       >
         <span className="text-[9px] tracking-[0.3em] uppercase">Scroll</span>
-        <div className="w-px h-8 bg-border animate-float" />
+        <div className="scroll-cue-line w-px h-8 bg-border" />
       </div>
     </section>
   )

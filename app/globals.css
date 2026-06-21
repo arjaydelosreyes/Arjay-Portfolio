@@ -15,11 +15,13 @@
 
 /* ─── Light mode ──────────────────────────────────── */
 :root {
+  --accent-hue: 50;
+
   --background: oklch(98.5% 0.006 65);
   --surface:    oklch(96%   0.008 65);
   --foreground: oklch(15%   0.015 65);
   --muted:      oklch(44%   0.015 65);
-  --accent:     oklch(60%   0.195 50);
+  --accent:     oklch(60%   0.195 var(--accent-hue));
   --border:     oklch(88%   0.010 65);
   --live:       oklch(62%   0.22  145);
 
@@ -29,11 +31,13 @@
 
 /* ─── Dark mode — cinematic deep black ───────────── */
 html.dark {
+  --accent-hue: 50;
+
   --background: oklch(5%    0.005 65);
   --surface:    oklch(9%    0.007 65);
   --foreground: oklch(97%   0.004 65);
   --muted:      oklch(38%   0.008 65);
-  --accent:     oklch(72%   0.175 50);
+  --accent:     oklch(72%   0.175 var(--accent-hue));
   --border:     oklch(14%   0.008 65);
   --live:       oklch(73%   0.17  145);
 }
@@ -46,38 +50,10 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: clip; /* prevent horizontal scroll from wide/transformed elements */
 }
 
-/* ─── Keyframes ───────────────────────────────────── */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fade-up-sm {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes card-enter {
-  from { opacity: 0; transform: scale(0.98) translateY(8px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-/* Character-by-character kinetic reveal for hero */
-@keyframes charReveal {
-  from { opacity: 0; transform: translateY(40px) rotate(-2deg) scaleX(0.9); }
-  to   { opacity: 1; transform: translateY(0) rotate(0deg) scaleX(1); }
-}
-
-/* Horizontal rule grow from left */
-@keyframes ruleGrow {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-}
-
+/* ─── Keyframes (CSS-owned — not migrated to GSAP) ── */
 @keyframes marquee-left {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -86,12 +62,6 @@ html {
 @keyframes marquee-right {
   from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
-}
-
-/* Gentle float for scroll cue */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
 }
 
 /* Slow ambient pulse for hero glow */
@@ -127,12 +97,11 @@ html {
   margin-bottom: 48px;
 }
 
-/* Hero horizontal rule that grows from left on load */
+/* Hero horizontal rule */
 .hero-rule {
   height: 1px;
   background: var(--border);
   transform-origin: left;
-  animation: ruleGrow 0.5s var(--ease-expo) 0.85s both;
 }
 
 /* Film grain texture overlay for hero */
@@ -148,12 +117,18 @@ html {
   z-index: 0;
 }
 
-/* ─── Utility animations ─────────────────────────── */
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+/* Grain texture overlay for hero video */
+.hero-video-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
+/* ─── Utility animations ─────────────────────────── */
 .link-underline {
   position: relative;
 }
@@ -173,12 +148,7 @@ html {
 .btn-active:active { transform: scale(0.97) !important; }
 
 /* ─── Code-motion cursor trail ────────────────────── */
-
-@keyframes code-trail-up {
-  from { opacity: 0.65; transform: translateY(0); }
-  to   { opacity: 0;    transform: translateY(-32px); }
-}
-
+/* Animation owned by GSAP — only styling lives here */
 .code-trail-char {
   position: fixed;
   pointer-events: none;
@@ -191,7 +161,6 @@ html {
   border: 1px solid var(--border);
   border-radius: 3px;
   padding: 1px 3px;
-  animation: code-trail-up 550ms ease-out forwards;
   user-select: none;
 }
 

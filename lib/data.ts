@@ -16,6 +16,7 @@ export type Project = {
   name: string
   description: string
   tags: string[]
+  image: string
   liveUrl?: string
   githubUrl?: string
 }
@@ -56,14 +57,25 @@ export const projects: Project[] = [
     name: 'Instroom Post Tracker',
     description:
       'Multi-tenant B2B SaaS platform for influencer marketing agencies. Sole developer. Handles automated post detection, content downloading, and metrics pipelines with row-level security.',
-    tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Railway', 'Vercel', 'Redis'],
+    tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Railway', 'Redis'],
+    image: '/instroom-post-tracker.png',
     liveUrl: 'https://posttracker.instroom.io',
+  },
+  {
+    name: 'Mejico Medspa Clinic',
+    description:
+      'Modern medical spa clinic booking and management system with real-time scheduling, appointment management, and client reservation workflows backed by Supabase.',
+    tags: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Supabase', 'shadcn/ui', 'GSAP'],
+    image: '/mejico-medspa-clinic.png',
+    liveUrl: 'https://mejico-medspa-clinic.vercel.app/',
+    githubUrl: 'https://github.com/arjaydelosreyes/mejico-medspa-clinic',
   },
   {
     name: 'SagiTech',
     description:
       'AI platform for real-time Saba banana ripeness classification and yield prediction for Filipino farmers. Integrates a custom-trained YOLOv8 model with weather-based yield forecasting.',
     tags: ['React 18', 'TypeScript', 'Django REST', 'FastAPI', 'YOLOv8', 'Socket.IO', 'Firebase'],
+    image: '/sagitech.jpg',
   },
 ]
 

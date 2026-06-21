@@ -1,7 +1,7 @@
 'use client'
 
-import type { CSSProperties } from 'react'
-import { useInView } from '@/hooks/useInView'
+import { useEffect, useRef } from 'react'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 interface Props {
   children: string
@@ -11,28 +11,48 @@ interface Props {
   stagger?: number // gap between each word (ms)
 }
 
-// Splits text into words and reveals each one upward through an overflow:hidden
-// mask as the container scrolls into view — the canonical premium editorial pattern.
 export default function WordReveal({ children, className = '', style, delay = 0, stagger = 60 }: Props) {
-  const { ref, inView } = useInView()
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) return
+
+    const wordSpans = el.querySelectorAll<HTMLElement>('.wr-word')
+
+    const ctx = gsap.context(() => {
+      gsap.from(wordSpans, {
+        y: '110%',
+        opacity: 0,
+        duration: 0.45,
+        ease: 'expo.out',
+        stagger: stagger / 1000,
+        delay: delay / 1000,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          once: true,
+        },
+      })
+    })
+
+    return () => ctx.revert()
+  }, [delay, stagger])
+
   const words = children.split(' ').filter(Boolean)
 
   return (
     <div
-      ref={ref as React.RefObject<HTMLDivElement>}
+      ref={containerRef}
       className={`flex flex-wrap gap-x-[0.28em] gap-y-1 ${className}`}
       style={style}
     >
       {words.map((word, i) => (
         <span key={i} className="overflow-hidden inline-block">
-          <span
-            className="inline-block"
-            style={{
-              transform: inView ? 'translateY(0)' : 'translateY(110%)',
-              opacity: inView ? 1 : 0,
-              transition: `transform 0.45s cubic-bezier(0.23,1,0.32,1) ${delay + i * stagger}ms, opacity 0.3s cubic-bezier(0.23,1,0.32,1) ${delay + i * stagger}ms`,
-            } as CSSProperties}
-          >
+          <span className="wr-word inline-block">
             {word}
           </span>
         </span>

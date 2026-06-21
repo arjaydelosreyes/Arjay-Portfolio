@@ -1,41 +1,52 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import type { CSSProperties } from 'react'
 import { useTheme } from '@/components/ThemeProvider'
-import { useInView } from '@/hooks/useInView'
 import { bio } from '@/lib/data'
 import WordReveal from '@/components/WordReveal'
-
-const EASE = 'cubic-bezier(0.23, 1, 0.32, 1)'
-
-function staggerStyle(i: number, inView: boolean): CSSProperties {
-  return {
-    opacity: inView ? undefined : 0,
-    animation: inView ? `fade-up-sm 400ms ${EASE} ${i * 80}ms both` : 'none',
-  }
-}
+import { gsap } from '@/lib/gsap'
 
 export default function About() {
   const { resolvedTheme } = useTheme()
   const photoSrc = resolvedTheme === 'dark' ? '/arjay-dark.jpg' : '/arjay-light.jpg'
-  const { ref, inView } = useInView()
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const ctx = gsap.context(() => {
+      gsap.from(el.querySelectorAll('[data-reveal]'), {
+        y: 24,
+        opacity: 0,
+        duration: 0.45,
+        ease: 'expo.out',
+        stagger: 0.08,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          once: true,
+        },
+      })
+    }, el)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={sectionRef}
       id="about"
       className="py-20 md:py-32 px-6"
     >
       <div className="max-w-5xl mx-auto">
 
-        {/* Section label */}
-        <div className="section-label" style={staggerStyle(0, inView)}>About</div>
+        <div data-reveal className="section-label">About</div>
 
-        {/* Word-reveal headline */}
         <WordReveal
           className="font-heading font-extrabold text-foreground mb-14"
-          style={{ fontSize: 'clamp(28px, 4vw, 44px)', lineHeight: 1.1, letterSpacing: '-0.03em' } as CSSProperties}
+          style={{ fontSize: 'clamp(28px, 4vw, 44px)', lineHeight: 1.1, letterSpacing: '-0.03em' }}
           delay={80}
           stagger={55}
         >
@@ -44,21 +55,16 @@ export default function About() {
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
 
-          {/* Left: bio summary */}
-          <p
-            className="text-muted leading-relaxed max-w-[65ch]"
-            style={staggerStyle(2, inView)}
-          >
+          <p data-reveal className="text-muted leading-relaxed max-w-[65ch]">
             {bio.summary}
           </p>
 
           {/* Right: photo + credentials + location (desktop) */}
           <div className="hidden md:flex flex-col gap-5">
-            {/* Profile photo */}
-            <div className="group relative w-full aspect-[2/3] overflow-hidden rounded-2xl border border-border" style={staggerStyle(2, inView)}>
+            <div data-reveal className="group relative w-full aspect-[2/3] overflow-hidden rounded-2xl border border-border">
               <Image src={photoSrc} alt="Arjay Delos Reyes" fill className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" sizes="(min-width: 768px) 50vw, 0px" unoptimized />
             </div>
-            <div style={staggerStyle(3, inView)}>
+            <div data-reveal>
               <div className="flex items-start gap-3 p-4 rounded-xl border border-border bg-surface hover:border-accent/40 hover:shadow-[0_4px_24px_oklch(60%_0.195_50/0.07)] transition-[border-color,box-shadow] duration-300">
                 <div className="mt-0.5 w-9 h-9 rounded-full bg-accent/15 flex items-center justify-center shrink-0">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-accent" aria-hidden="true">
@@ -72,7 +78,7 @@ export default function About() {
               </div>
             </div>
 
-            <p className="group text-sm text-muted flex items-center gap-2 hover:text-foreground transition-colors duration-200" style={staggerStyle(4, inView)}>
+            <p data-reveal className="group text-sm text-muted flex items-center gap-2 hover:text-foreground transition-colors duration-200">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="shrink-0 transition-transform duration-200 group-hover:scale-110" aria-hidden="true">
                 <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />

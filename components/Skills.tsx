@@ -1,25 +1,41 @@
 'use client'
 
-import { useInView } from '@/hooks/useInView'
+import { useEffect, useRef } from 'react'
 import { skillCategories, type SkillCategory } from '@/lib/data'
 import SkillsMarquee from '@/components/SkillsMarquee'
+import { gsap } from '@/lib/gsap'
 
 const hasIcon = (s: SkillCategory['skills'][number]) =>
   s.Icon || s.iconUrl || s.iconUrlLight || s.iconUrlDark
 
 function CategoryRow({ category, index }: { category: SkillCategory; index: number }) {
-  const { ref, inView } = useInView()
+  const rowRef = useRef<HTMLDivElement>(null)
   const direction = index % 2 === 0 ? 'left' : 'right' as const
+  const xFrom = direction === 'left' ? -24 : 24
+
+  useEffect(() => {
+    const el = rowRef.current
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const ctx = gsap.context(() => {
+      gsap.from(el, {
+        x: xFrom,
+        opacity: 0,
+        duration: 0.45,
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          once: true,
+        },
+      })
+    }, el)
+
+    return () => ctx.revert()
+  }, [xFrom])
 
   return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateX(0)' : `translateX(${direction === 'left' ? '-24px' : '24px'})`,
-        transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1), transform 450ms cubic-bezier(0.23, 1, 0.32, 1)',
-      }}
-    >
+    <div ref={rowRef}>
       <div className="max-w-5xl mx-auto px-6 mb-4 text-center">
         <h3 className="font-heading font-semibold text-xs text-muted uppercase tracking-[0.15em]">
           {category.name}
@@ -31,7 +47,24 @@ function CategoryRow({ category, index }: { category: SkillCategory; index: numb
 }
 
 export default function Skills() {
-  const { ref, inView } = useInView()
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const ctx = gsap.context(() => {
+      gsap.from(el.querySelector('.section-label'), {
+        y: 16,
+        opacity: 0,
+        duration: 0.45,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      })
+    }, el)
+
+    return () => ctx.revert()
+  }, [])
 
   const visibleCategories = skillCategories
     .map(cat => ({ ...cat, skills: cat.skills.filter(hasIcon) }))
@@ -39,10 +72,9 @@ export default function Skills() {
 
   return (
     <section
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={sectionRef}
       id="skills"
       className="py-24 md:py-36"
-      style={{ opacity: inView ? 1 : 0, animation: inView ? 'fade-in-up 600ms ease-out both' : 'none' }}
     >
       <div className="max-w-5xl mx-auto px-6 text-center">
         <h2 className="sr-only">Skills</h2>
