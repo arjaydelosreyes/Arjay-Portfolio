@@ -8,7 +8,7 @@ import WordReveal from '@/components/WordReveal'
 import { gsap } from '@/lib/gsap'
 
 const inputClass =
-  'w-full bg-background border border-border rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent/60 focus:shadow-[0_0_0_3px_oklch(60%_0.195_50/0.12)] transition-[border-color,box-shadow] duration-200'
+  'w-full bg-input-bg border border-input-border rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent/60 focus:shadow-[0_0_0_3px_oklch(60%_0.195_50/0.12)] transition-[border-color,box-shadow] duration-200'
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)

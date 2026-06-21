@@ -8,6 +8,8 @@
   --color-accent:     var(--accent);
   --color-border:     var(--border);
   --color-live:       var(--live);
+  --color-input-bg:     var(--input-bg);
+  --color-input-border: var(--input-border);
 
   --font-heading: var(--font-bricolage), sans-serif;
   --font-body:    var(--font-figtree), sans-serif;
@@ -24,6 +26,8 @@
   --accent:     oklch(60%   0.195 var(--accent-hue));
   --border:     oklch(88%   0.010 65);
   --live:       oklch(62%   0.22  145);
+  --input-bg:     oklch(99.5% 0.003 65);
+  --input-border: oklch(84%   0.012 65);
 
   /* Unified easing — expo-out, Emil Kowalski standard */
   --ease-expo: cubic-bezier(0.23, 1, 0.32, 1);
@@ -40,6 +44,8 @@ html.dark {
   --accent:     oklch(72%   0.175 var(--accent-hue));
   --border:     oklch(14%   0.008 65);
   --live:       oklch(73%   0.17  145);
+  --input-bg:     oklch(14%  0.010 65);
+  --input-border: oklch(26%  0.012 65);
 }
 
 /* ─── Base ────────────────────────────────────────── */
