@@ -50,7 +50,7 @@ export default function About() {
           delay={80}
           stagger={55}
         >
-          {`Graduating Full-Stack Developer building production-grade apps and AI automations.`}
+          {`Fresh Graduate. Full-Stack Developer building production-grade apps and AI automations.`}
         </WordReveal>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
